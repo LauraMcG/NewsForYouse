@@ -1,0 +1,141 @@
+NOTES 5-31
+==========
+
+eLuminati
+
+**
+June 12th - guest speaker: Charles Worthy, Strive Consulting --> LinkedIn
+What he looks for in tech recruiting
+
+19: React I
+20: React II (Vue, Angular can map from this)
+21: intro to  python
+22: Algorithms
+23: Proj. 3, Intro to Ruby, Automated Testing
+24: Proj. 3, presentations
+
+WHITEBOARDING
+=============
+
+#1 thing to prove in tech interview: YOU'RE A STRONG PROBLEM SOLVER
+(like being a shakespearean actor doing a 1-minute standup routine??)
+
+2 types of problems:
+
+-Coding. Clean, efficient code.
+
+- Chitchat. high-lvl system design (how would you build a twitter clone?), or trivia (what is hoisting in javascript?)
+
+ASK: Do you want this answer written down? / Should we write code for this?
+
+***HACKERRANK***
+good idea to get comfortable with testing environments liek this - will help increase comfort levels
+
+~~~~~~~~~~~~~~~~
+The person interviewing you doesn't want to be there. Best to have a conversation. If you make it comfortable and interesting, it will put them at ease too! Think of them as a future coworker!
+~~~~~~~~~~~~~~~~
+
+Even footing -- they have to impress you too
+
+When whiteboarding:
+- Restate the problem
+- Translate the problem into English.
+- Interact with the interviewer as much as possible
+- Pseudocode as much as possible
+- if you're asked to write code, do it between the pseudocode (keep it there. prevents forgetting. showing your work)
+- talk out loud as you code
+
+ask questions if you have them!
+
+dead silence is the worst thing to have in an interview
+
+ex: given an array of numbers, write a function that outputs a version of the array with its contents in descending order
+
+ask questions -- ex: what kind of data types? (how is the data handed to you? traps) what volume of numbers? (future pitfalls -- performance)
+(the types of questions you ask will show what kind of problm solver you are)
+
+sketch your solution: show how it would work -- visualize it, essentially steps of the values involved.
+
+discuss your solution
+
+discuss what you may be skipping -- ex: "it would make sense to check the data type first"
+recognizing real world sub problems
+
+implement solution
+
+discuss shortcomings and solutions (side effects, mutating data) (showing an understanding that the problem can be more complex)
+
+function fizzbuzz() {
+	for (var i = 1; i < 101; i++) {
+		if (i%15 === 0) {
+			console.log('FizzBuzz');
+		} else if (i%3 === 0) {
+			console.log('Fizz');
+		} else if (i%5 === 0) {
+			console.log('Buzz');
+		} else {
+			console.log(i);
+		}
+	}
+}
+
+fizzbuzz();
+
+- duckin' syntax
+
+======
+
+lol don't say "google the answer" -- > looking @ documentation 
+
+how u gonna work with a team with these tools?
+
+what will you say if you don't have an answer? how do you prepare good answers ?
+
+" i know what it's supposed to do, but i've never done it"
+" how do you use it in your group?" may offer connections to other technologies
+
+have a recovery mechanism
+
+
+
+
+//take each individual value of each array and compare them to each other
+
+var first = 
+var second
+
+
+
+function deepEquals (first, second) {
+	for (var i = 0; i < first.length; i++) {
+		if (first[i] != second[i]) {
+			return false;			
+		}
+	}
+	return true;
+}
+
+
+
+
+if it's true, go to the next one
+
+if it's false, stop 
+
+
+
+other resources:
+whiteboarding on gitlab -- videos, more questions
+
+"rather dry algorithms"
+
+also a technical interview rubric
+
+- cracking the coding interview
+- elements of programming interviews
+
+- topcoder, hackerrank, exorcism.io
+
+get yrself in a zone
+practice is crucial
+like a standarized test
