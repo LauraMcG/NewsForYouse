@@ -2,24 +2,33 @@
 
 //DEPENDENCIES
 var bodyParser = require('body-parser');
+var cheerio = require('cheerio');
 var express = require('express');
 var exphbs = require('express-handlebars');
 var mongoose = require('mongoose');
 var request = require('request');
-var cheerio = require('cheerio');
 
 mongoose.Promise = Promise;
 
-//MODELS will go here
+//MODELS
+var Article = require('./models/Article.js');
+var Comment = require('./models/Comment.js');
+
 
 //EXPRESS SERVER SETUP
 var app = express();
 var port = 8080;
 
+
+// BODY PARSER SETUP
+app.use(bodyParser.urlencoded({ extended: false }));
+
+
 //search for static content in public and serve it.
 app.use(express.static(process.cwd() + '/public'));
 
-//MONGOOSE DB CONFIGURATION
+
+//MONGOOSE CONFIGURATION
 mongoose.connect('mongodb://localhost/newsforyouse');
 var db = mongoose.connection;
 
@@ -33,14 +42,12 @@ db.once('open', function() {
 	console.log('Mongoose connected!');
 })
 
-// BODY PARSER SETUP
-app.use(bodyParser.urlencoded({ extended: false }));
 
 //HANDLEBARS SETUP
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
 
-//IMPORTING CONTROLLER
+//IMPORTING CONTROLLER ROUTES
 var routes = require('./controllers/news_controller')(app);
 
 //setting up the port to listen
