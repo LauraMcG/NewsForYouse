@@ -53,47 +53,42 @@ module.exports = function(app) {
 		});
 	});
 
-	//display individual article page (with comments)
-	app.get('/articles/:id', function (req, res) {
-		console.log('the req.params.id for the get is: ' + req.params.id);
+	app.route('/articles/:id')
+	//setting all the relevant routes for the individual article pages
+		.get(function (req, res) {
 
-		Article.findOne({ "_id": req.params.id })
-		.populate('comment')
+			Article.findOne({ "_id": req.params.id })
+			.populate('comments')
 
-		.exec( function (error, doc) {
-			if(error) {
-				console.log(error);
-			} else {
-				res.render('comments', {articles: doc});
-			}
-		});
-	});
+			.exec( function (error, doc) {
+				if(error) {
+					console.log(error);
+				} else {
+					res.render('comments', {articles: doc});
+				}
+			})
+		})
 
-	app.post('/articles/:id', function(req, res) {
-		console.log('the req.params.id for the get is: ' + req.params.id);
-		
-		var newComment = new Comment(req.body);
+		.post(function(req, res) {
+		//adding a comment to a specific article
+			var newComment = new Comment(req.body);
 
-		newComment.save(function(error, doc) {
-			if(error) {
-				console.log(error);
-			} else {
-				console.log(doc);
+			newComment.save(function(error, doc) {
+				if(error) {
+					console.log(error);
+				} else {
 
-				Article.findOneAndUpdate({ "_id": req.params.id }, {"comment": doc._id})
-
-				.exec(function(err, doc){
-					if (err) {
-						console.log(err);
-					} else {
-						res.send(doc);
-					}
-				});
-
-
-			}
-		});
-	});
+					Article.findOneAndUpdate({ "_id": req.params.id }, { $push: {"comments": doc._id} }, {new: true}, function(err, newdoc) {
+						if (err) {
+							res.send(err);
+						} else {
+							res.redirect('/');
+							//really i want to just refresh the page. this will do for now.
+						}
+					});
+				}
+			});
+		})
 
 //end module.exports
 }

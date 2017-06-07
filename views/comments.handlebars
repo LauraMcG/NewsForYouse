@@ -2,8 +2,8 @@
 <h4>Source: {{articles.sourceLink}}</h4>
 
 <h4>Comments</h4>
-	{{#if articles.comment}}
-		{{#each articles.comment}}
+	{{#if articles.comments}}
+		{{#each articles.comments}}
 			<h4>{{this.title}}</h4>
 			<p>{{this.body}}</p>
 		{{/each}}
