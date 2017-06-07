@@ -13,7 +13,9 @@ var Comment = require('../models/Comment.js');
 module.exports = function(app) {
 
 	app.get('/', function(req, res) {
+		//eventually, put scarping functionality here
 
+		//get all articles from database and display on index
 		Article.find({}, function (error, doc) {
 			if (error) {
 				console.log(error);
@@ -22,36 +24,9 @@ module.exports = function(app) {
 				// res.json(doc);
 			}
 		});
-		
 	});
 
-	//basic scrape, no Mongoose. here for testing purposes.
-	//DELETE IN FINAL VERSION
-	app.get('/scrapearray', function(req, res) {
-		request('http://www.reddit.com/r/futurology', function (error, response, html) {
-			var $cheerio = cheerio.load(html);
-
-			var result = [];
-
-			$cheerio('a.title').each(function(error, response) {
-
-				if (error) {
-					console.log('There was an error: ' + error);
-				}				
-
-				//pulling the title and the source link
-				var title = $cheerio(this).text();
-				var sourceLink = $cheerio(this).attr('href');
-
-				result.push({
-					title: title,
-					sourceLink: sourceLink
-				});
-			});
-			res.send('Scrape success!');
-		});
-	});
-
+//!! move this functionality into the get for index
 	app.get('/scrapemongoose', function(req, res) {
 		request('http://www.reddit.com/r/futurology', function (error, response, html) {
 			//pulling the html from /r/futurology with cheerio
@@ -75,6 +50,48 @@ module.exports = function(app) {
 				});
 
 			});
+		});
+	});
+
+	//display individual article page (with comments)
+	app.get('/articles/:id', function (req, res) {
+		console.log('the req.params.id for the get is: ' + req.params.id);
+
+		Article.findOne({ "_id": req.params.id })
+		.populate('comment')
+
+		.exec( function (error, doc) {
+			if(error) {
+				console.log(error);
+			} else {
+				res.render('comments', {articles: doc});
+			}
+		});
+	});
+
+	app.post('/articles/:id', function(req, res) {
+		console.log('the req.params.id for the get is: ' + req.params.id);
+		
+		var newComment = new Comment(req.body);
+
+		newComment.save(function(error, doc) {
+			if(error) {
+				console.log(error);
+			} else {
+				console.log(doc);
+
+				Article.findOneAndUpdate({ "_id": req.params.id }, {"comment": doc._id})
+
+				.exec(function(err, doc){
+					if (err) {
+						console.log(err);
+					} else {
+						res.send(doc);
+					}
+				});
+
+
+			}
 		});
 	});
 

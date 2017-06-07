@@ -1,6 +1,6 @@
-{{#each articles}}
-	<p>{{this.title}}
-	</p>
-{{/each}}
+<h2>Articles</h2>
 
-Welcome to the index!
+{{#each articles}}
+	<p>{{this.title}}</p>
+	<p><a href ="{{this.sourceLink}}">Source</a> | <a href="/articles/{{this.id}}">Comment on this article!</a></p>
+{{/each}}

@@ -1,0 +1,21 @@
+<h2>{{articles.title}}</h2>
+<h4>Source: {{articles.sourceLink}}</h4>
+
+<h4>Comments</h4>
+	{{#if articles.comment}}
+		{{#each articles.comment}}
+			<h4>{{this.title}}</h4>
+			<p>{{this.body}}</p>
+		{{/each}}
+	{{else}}
+		Be the first to add a comment!
+	{{/if}}
+
+<h3>Comment</h3>
+<form action="/articles/{{articles.id}}" method="post">
+	<input type="text"name="title" placeholder="Title">
+	<br>
+	<textarea type="text" name="body"  placeholder="Comment"></textarea>
+	<br>
+	<input type="submit">
+</form>
