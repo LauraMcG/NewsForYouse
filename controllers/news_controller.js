@@ -13,21 +13,8 @@ var Comment = require('../models/Comment.js');
 module.exports = function(app) {
 
 	app.get('/', function(req, res) {
-		//eventually, put scarping functionality here
-
-		//get all articles from database and display on index
-		Article.find({}, function (error, doc) {
-			if (error) {
-				console.log(error);
-			} else {
-				res.render('index', {articles: doc});
-				// res.json(doc);
-			}
-		});
-	});
-
-//!! move this functionality into the get for index
-	app.get('/scrapemongoose', function(req, res) {
+		//first, scrape site for articles
+		//validation for only scraping new articles is handled in Article.js
 		request('http://www.reddit.com/r/futurology', function (error, response, html) {
 			//pulling the html from /r/futurology with cheerio
 			var $cheerio = cheerio.load(html);
@@ -48,10 +35,45 @@ module.exports = function(app) {
 						console.log(doc);
 					}
 				});
-
 			});
 		});
+		//after scraping for updates, get all articles from database and display on index
+		Article.find({}, function (error, doc) {
+			if (error) {
+				console.log(error);
+			} else {
+				res.render('index', {articles: doc});
+				// res.json(doc);
+			}
+		});
 	});
+
+//!! move this functionality into the get for index
+	// app.get('/scrapemongoose', function(req, res) {
+	// 	request('http://www.reddit.com/r/futurology', function (error, response, html) {
+	// 		//pulling the html from /r/futurology with cheerio
+	// 		var $cheerio = cheerio.load(html);
+	// 		//with cheerio, we select all of the a tags with a title class
+	// 		$cheerio('a.title').each(function(i, element) {
+	// 			//create an empty result object to store our data
+	// 			var result = {};
+	// 			//putting the title and source link of each article in a variable.
+	// 			result.title = $cheerio(this).text();
+	// 			result.sourceLink = $cheerio(this).attr('href');
+	// 			// creting a new article object with mongoose
+	// 			var entry = new Article(result);
+	// 			//storing the new entry to mongo. log any errors.
+	// 			entry.save(function(error, doc) {
+	// 				if (error) {
+	// 					console.log(error);
+	// 				} else {
+	// 					console.log(doc);
+	// 				}
+	// 			});
+
+	// 		});
+	// 	});
+	// });
 
 	app.route('/articles/:id')
 	//setting all the relevant routes for the individual article pages
