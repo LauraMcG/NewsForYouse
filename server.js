@@ -44,11 +44,16 @@ db.on('error', function(error) {
 //success message after logging into database through Mongoose
 db.once('open', function() {
 	console.log('Mongoose connected!');
-})
-
+});
 
 //HANDLEBARS SETUP
-app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
+//creating partial directory
+var hbs = exphbs.create({
+		defaultLayout: 'main', 
+		partialsDir:['./views/partials/']
+});
+
+app.engine("handlebars", hbs.engine);
 app.set('view engine', 'handlebars');
 
 //IMPORTING CONTROLLER ROUTES
