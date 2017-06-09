@@ -7,6 +7,7 @@ var express = require('express');
 var exphbs = require('express-handlebars');
 var mongoose = require('mongoose');
 var request = require('request');
+var methodOverride = require('method-override');
 
 mongoose.Promise = Promise;
 
@@ -26,6 +27,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 //search for static content in public and serve it.
 app.use(express.static(process.cwd() + '/public'));
+
+//METHOD-OVERRIDE SETUP
+app.use(methodOverride("_method"));
 
 
 //MONGOOSE CONFIGURATION
@@ -50,7 +54,7 @@ app.set('view engine', 'handlebars');
 //IMPORTING CONTROLLER ROUTES
 var routes = require('./controllers/news_controller')(app);
 
-//setting up the port to listen
+//sLISTEN TO PORT
 app.listen(port, function() {
 	console.log('App running on port ' + port);
 });

@@ -82,13 +82,21 @@ module.exports = function(app) {
 						if (err) {
 							res.send(err);
 						} else {
-							res.redirect('/');
-							//really i want to just refresh the page. this will do for now.
+							res.redirect('back');
 						}
 					});
 				}
 			});
 		})
-
+	//delete a comment from an article post
+	app.delete('/comment/remove/:id',function(req, res) {
+			Comment.findOneAndRemove({"_id": req.params.id}, function(error, doc) {
+				if (error) {
+					console.log(error);
+				} else {
+					 res.redirect('back');
+				}
+			})
+		})
 //end module.exports
 }
