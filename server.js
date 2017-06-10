@@ -18,7 +18,7 @@ var Comment = require('./models/Comment.js');
 
 //EXPRESS SERVER SETUP
 var app = express();
-var port = 8080;
+var port = 5000;
 
 
 // BODY PARSER SETUP
@@ -59,7 +59,7 @@ app.set('view engine', 'handlebars');
 //IMPORTING CONTROLLER ROUTES
 var routes = require('./controllers/news_controller')(app);
 
-//sLISTEN TO PORT
+//LISTEN TO PORT
 app.listen(port, function() {
 	console.log('App running on port ' + port);
 });
