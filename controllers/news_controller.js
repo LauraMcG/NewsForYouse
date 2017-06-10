@@ -32,7 +32,7 @@ module.exports = function(app) {
 					if (error) {
 						console.log(error);
 					} else {
-						console.log(doc);
+						console.log('entries saved!');
 					}
 				});
 			});
@@ -47,33 +47,6 @@ module.exports = function(app) {
 			}
 		});
 	});
-
-//!! move this functionality into the get for index
-	// app.get('/scrapemongoose', function(req, res) {
-	// 	request('http://www.reddit.com/r/futurology', function (error, response, html) {
-	// 		//pulling the html from /r/futurology with cheerio
-	// 		var $cheerio = cheerio.load(html);
-	// 		//with cheerio, we select all of the a tags with a title class
-	// 		$cheerio('a.title').each(function(i, element) {
-	// 			//create an empty result object to store our data
-	// 			var result = {};
-	// 			//putting the title and source link of each article in a variable.
-	// 			result.title = $cheerio(this).text();
-	// 			result.sourceLink = $cheerio(this).attr('href');
-	// 			// creting a new article object with mongoose
-	// 			var entry = new Article(result);
-	// 			//storing the new entry to mongo. log any errors.
-	// 			entry.save(function(error, doc) {
-	// 				if (error) {
-	// 					console.log(error);
-	// 				} else {
-	// 					console.log(doc);
-	// 				}
-	// 			});
-
-	// 		});
-	// 	});
-	// });
 
 	app.route('/articles/:id')
 	//setting all the relevant routes for the individual article pages
