@@ -11,6 +11,8 @@ var methodOverride = require('method-override');
 
 mongoose.Promise = Promise;
 
+var Art = require('./models/Art.js');
+
 //MODELS
 var Article = require('./models/Article.js');
 var Comment = require('./models/Comment.js');
@@ -18,7 +20,7 @@ var Comment = require('./models/Comment.js');
 
 //EXPRESS SERVER SETUP
 var app = express();
-var port = 5000;
+var port = process.env.PORT || 8080;
 
 
 // BODY PARSER SETUP

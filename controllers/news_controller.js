@@ -55,7 +55,7 @@ module.exports = function(app) {
 			Article.findOne({ "_id": req.params.id })
 			.populate('comments')
 
-			.exec( function (error, doc) {
+			.then( function (error, doc) {
 				if(error) {
 					console.log(error);
 				} else {
