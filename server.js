@@ -11,8 +11,6 @@ var methodOverride = require('method-override');
 
 mongoose.Promise = Promise;
 
-var Art = require('./models/Art.js');
-
 //MODELS
 var Article = require('./models/Article.js');
 var Comment = require('./models/Comment.js');
