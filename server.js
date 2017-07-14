@@ -33,7 +33,7 @@ app.use(methodOverride("_method"));
 
 
 //MONGOOSE CONFIGURATION
-mongoose.connect('');
+mongoose.connect('mongodb://heroku_lzfn82kp:33ru0t7sfcb768jtl8btevmerl@ds119302.mlab.com:19302/heroku_lzfn82kp');
 var db = mongoose.connection;
 
 //display mongoose errors
